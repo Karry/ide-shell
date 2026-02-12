@@ -1,0 +1,41 @@
+#!/bin/bash
+
+SHELL_DIR=$(dirname $0)
+
+NAME=""
+if [ -f CMakeLists.txt ] ; then
+    NAME=$(cat CMakeLists.txt | grep project | head -1 | sed 's/project(\([^ ]*\).*/\1/')
+    DOCKERFILE="${SHELL_DIR}/cpp.Dockerfile"
+    IMAGE="ide-shell-cpp"
+else
+    DOCKERFILE="${SHELL_DIR}/cpp.Dockerfile"
+    IMAGE="ide-shell"
+fi
+
+if [ -z "$NAME" ] ; then
+    NAME=$(pwd | sed 's|.*/\([^/]*\)$|\1|')
+fi
+
+docker build --tag $IMAGE "${SHELL_DIR}" -f "${DOCKERFILE}" > /dev/null 2>&1
+NAME="$NAME-$RANDOM"
+
+if [ ! -d .ide-shell-home ] ; then
+    mkdir .ide-shell-home
+fi
+
+DOCKER_GID=$(stat -c '%g' /var/run/docker.sock)
+
+exec docker run -it \
+    --name "${NAME}" \
+    -e "CONTAINER_NAME=$NAME" \
+    -e "HOME=$HOME" \
+    -e "CARGO_HOME=$HOME/.cargo" \
+    -v "/var/run/docker.sock:/var/run/docker.sock" \
+    -v "$(pwd)/.ide-shell-home:$HOME:rw" \
+    -v "${SHELL_DIR}/bashrc:$HOME/.bashrc:ro" \
+    -v "$(pwd):$(pwd)" \
+    --workdir "$(pwd)" \
+    --user "$(id -u):$(id -g)" \
+    --group-add "${DOCKER_GID}" \
+    "$IMAGE" \
+    /bin/bash
