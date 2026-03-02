@@ -32,3 +32,6 @@ RUN apt-get update && apt-get install -y \
           g++ \
     && rm -rf /var/lib/apt/lists/*
           
+RUN curl -fsSL https://claude.ai/install.sh | bash
+RUN chmod -R og+rx /root
+ENV PATH="/root/.local/bin/:${PATH}"

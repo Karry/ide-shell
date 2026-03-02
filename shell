@@ -34,6 +34,8 @@ exec docker run -it \
     -v "$(pwd)/.ide-shell-home:$HOME:rw" \
     -v "${SHELL_DIR}/bashrc:$HOME/.bashrc:ro" \
     -v "$(pwd):$(pwd)" \
+    -v "$HOME/.claude/:$HOME/.claude/" \
+    -v "$HOME/.claude.json:$HOME/.claude.json" \
     --workdir "$(pwd)" \
     --user "$(id -u):$(id -g)" \
     --group-add "${DOCKER_GID}" \
