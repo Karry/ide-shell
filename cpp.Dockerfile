@@ -1,4 +1,4 @@
-FROM ubuntu:noble
+FROM ubuntu:questing
 
 # disable interactive functions
 ENV DEBIAN_FRONTEND=noninteractive
