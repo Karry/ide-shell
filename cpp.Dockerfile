@@ -20,7 +20,7 @@ RUN apt-get update && \
       swig openjdk-8-jdk \
       locales \
       catch2 \
-      python3-pip python3.12-venv \
+      python3-pip python3-venv \
     && rm -rf /var/lib/apt/lists/*
 
 RUN locale-gen en_US.UTF-8
