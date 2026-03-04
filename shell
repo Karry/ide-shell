@@ -1,6 +1,8 @@
 #!/bin/bash
 
-SHELL_DIR=$(dirname $0)
+SHELL_DIR=$(which $0)
+SHELL_DIR=$(readlink -f $SHELL_DIR)
+SHELL_DIR=$(dirname $SHELL_DIR)
 
 NAME=""
 if [ -f CMakeLists.txt ] ; then
