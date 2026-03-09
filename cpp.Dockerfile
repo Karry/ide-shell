@@ -4,7 +4,7 @@ FROM ubuntu:questing
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-    apt install -y bash-completion command-not-found \
+    apt install -y bash-completion command-not-found curl less \
       docker.io docker-compose ripgrep \
       git make ninja-build libtool pkg-config \
       libxml2-dev libprotobuf-dev protobuf-compiler \
