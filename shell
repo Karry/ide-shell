@@ -27,6 +27,13 @@ fi
 
 DOCKER_GID=$(stat -c '%g' /var/run/docker.sock)
 
+ADDITIONAL_ARGS=""
+if [ "$NETWORK" == "host" ] ; then
+    ADDITIONAL_ARGS="--network host"
+    echo "Using host network mode!"
+    sleep 1
+fi
+
 exec docker run -it \
     --name "${NAME}" \
     -e "CONTAINER_NAME=$NAME" \
@@ -42,5 +49,6 @@ exec docker run -it \
     --workdir "$(pwd)" \
     --user "$(id -u):$(id -g)" \
     --group-add "${DOCKER_GID}" \
+    $ADDITIONAL_ARGS \
     "$IMAGE" \
     /bin/bash
