@@ -37,6 +37,7 @@ exec docker run -it \
     -v "${SHELL_DIR}/bashrc:$HOME/.bashrc:ro" \
     -v "$(pwd):$(pwd)" \
     -v "$HOME/.claude/:$HOME/.claude/" \
+    -v "${SHELL_DIR}/managed-settings.json:/etc/claude-code/managed-settings.json:ro" \
     -v "$HOME/.claude.json:$HOME/.claude.json" \
     --workdir "$(pwd)" \
     --user "$(id -u):$(id -g)" \
