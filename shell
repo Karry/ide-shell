@@ -19,7 +19,7 @@ if [ -z "$NAME" ] ; then
 fi
 
 docker build --tag $IMAGE "${SHELL_DIR}" -f "${DOCKERFILE}" > /dev/null 2>&1
-NAME="$NAME-$RANDOM"
+NAME=$(echo "$NAME-$RANDOM" | tr -cd 'a-z0-9-_')
 
 if [ ! -d .ide-shell-home ] ; then
     mkdir .ide-shell-home
