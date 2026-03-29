@@ -21,6 +21,7 @@ RUN apt-get update && \
       locales \
       catch2 \
       python3-pip python3-venv \
+      strace \
     && rm -rf /var/lib/apt/lists/*
 
 RUN locale-gen en_US.UTF-8
