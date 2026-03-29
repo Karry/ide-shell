@@ -6,7 +6,7 @@ SHELL_DIR=$(dirname $SHELL_DIR)
 
 NAME=""
 if [ -f CMakeLists.txt ] ; then
-    NAME=$(cat CMakeLists.txt | grep project | head -1 | sed 's/project(\([^ ]*\).*/\1/')
+    NAME=$(cat CMakeLists.txt | grep project | head -1 | sed 's/project(\([^ )]*\).*/\1/')
     DOCKERFILE="${SHELL_DIR}/cpp.Dockerfile"
     IMAGE="ide-shell-cpp"
 else
